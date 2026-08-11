@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Zah Bookstore — Buku Dr. Izza Rohman | Tafsir & Tazkiyah</title>
+<meta name="description" content="Zah Bookstore menjual 6 buku karya Dr. Izza Rohman: Tafsir Bacaan Shalat, Ilmu Ikhlas, Memahami Surah Al-Fatihah, Yasin, Al-Ma'un, Rizqan Wasi'an Thayyiban. Mulai Rp45.000, kirim se-Indonesia, pesan lewat WhatsApp.">
+<meta name="theme-color" content="#0a1410">
+<meta property="og:title" content="Zah Bookstore — Buku Dr. Izza Rohman">
+<meta property="og:description" content="Enam judul tafsir & tazkiyatun nafs. Mulai Rp45.000. Kirim se-Indonesia, pesan lewat WhatsApp.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="fs1.css">
+<link rel="stylesheet" href="fs2.css">
+<link rel="stylesheet" href="fs3.css">
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true"><div class="tk" id="tk"></div></div>
+<div class="prog" id="prog" aria-hidden="true"></div>
+
+<!-- scroll-continues cue -->
+<div class="morecue" id="morecue" aria-hidden="true">
+  <span class="txt">Masih ada di bawah</span>
+  <span class="arw">↓</span>
+</div>
+
+<!-- section rail -->
+<nav class="railnav" aria-label="Navigasi bagian" id="railnav"></nav>
+
+<a href="#katalog" class="skip">Langsung ke katalog buku</a>
+
+<canvas id="aurora" aria-hidden="true"></canvas>
+<div id="grain" aria-hidden="true"></div>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#top" class="logo">Zah<span>.</span> <small>Bookstore</small></a>
+    <nav aria-label="Navigasi utama"><ul>
+      <li><a href="#katalog">Katalog</a></li>
+      <li><a href="#beli">Beli</a></li>
+      <li><button class="navlink" id="tafsirOpen" type="button">Tafsir</button></li>
+      <li><a href="#cara-pesan">Cara Pesan</a></li>
+      <li><a href="#penulis">Penulis</a></li>
+      <li><a href="#ulasan">Ulasan</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul></nav>
+    <a href="#pesan" class="btn btn-gold btn-sm btn-nav"><span class="sheen"></span>Pesan Sekarang</a>
+    <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false" aria-controls="mobmenu">☰</button>
+  </div>
+</header>
+
+<div class="mobmenu" id="mobmenu" role="dialog" aria-label="Menu navigasi">
+  <button class="mx" id="mobx" aria-label="Tutup menu">×</button>
+  <ul>
+    <li><a href="#katalog">Katalog</a></li><li><a href="#beli">Beli</a></li>
+    <li><button class="navlink" id="tafsirOpenM" type="button">Tafsir</button></li>
+    <li><a href="#cara-pesan">Cara Pesan</a></li>
+    <li><a href="#penulis">Penulis</a></li><li><a href="#ulasan">Ulasan</a></li>
+    <li><a href="#faq">FAQ</a></li><li><a href="#pesan" style="color:var(--gold)">Pesan Sekarang</a></li>
+  </ul>
+</div>
+
+<!-- ============ TAFSIR DRAWER (in-page, no navigation) ============ -->
+<div class="scrime" id="scrime" aria-hidden="true"></div>
+<aside class="tdrawer" id="tdrawer" role="dialog" aria-modal="true" aria-label="Daftar Tafsir Al-Qur'an">
+  <div class="td-head">
+    <div>
+      <span class="td-kick">PERPUSTAKAAN TAFSIR</span>
+      <h2 class="td-title">114 Surah Al-Qur'an</h2>
+    </div>
+    <button class="td-x" id="tdClose" aria-label="Tutup daftar tafsir">×</button>
+  </div>
+  <div class="td-tools">
+    <div class="td-search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input id="tdSearch" type="search" placeholder="Cari surah…" aria-label="Cari surah">
+    </div>
+    <div class="td-seg" role="tablist" aria-label="Filter">
+      <button class="on" data-f="all">Semua</button>
+      <button data-f="Makkiyah">Makkiyah</button>
+      <button data-f="Madaniyah">Madaniyah</button>
+      <button data-f="written">Ada Tafsir</button>
+    </div>
+  </div>
+  <div class="td-list" id="tdList"></div>
+  <div class="td-foot">Klik surah untuk membaca tafsirnya. Surah yang belum ditulis ditandai <b>Belum</b> dan tidak bisa dibuka.</div>
+
+  <!-- article view (inside drawer) -->
+  <div class="td-art" id="tdArt" aria-hidden="true">
+    <button class="td-back" id="tdBack">← Kembali ke daftar</button>
+    <div class="td-art-head">
+      <div class="td-art-num" id="tdArtNum">1</div>
+      <div>
+        <h3 id="tdArtTitle">Al-Fatihah</h3>
+        <span class="td-art-ar" id="tdArtAr" dir="rtl"></span>
+        <div class="td-art-meta" id="tdArtMeta"></div>
+      </div>
+    </div>
+    <div class="td-art-body article" id="tdArtBody"></div>
+  </div>
+</aside>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="neongrid" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <p class="badge rv"><b>✦</b> 6 judul resmi Dr. Izza Rohman</p>
+      <h1 style="margin-top:20px">
+        <span class="kin"><span>Paham dulu,</span></span><br>
+        <span class="kin"><span><em>baru khusyuk.</em></span></span>
+      </h1>
+      <p class="lead rv">Toko buku yang hanya menjual karya Dr. Izza Rohman — tafsir dan tazkiyatun nafs dengan bahasa membumi. Belum tahu harus mulai dari judul mana? Tanya dulu, gratis.</p>
+      <p class="pricefrom rv">Harga satuan mulai <b>Rp45.000</b> · Paket 5 buku <b>Rp247.500</b></p>
+      <div class="hero-cta rv">
+        <a href="#katalog" class="btn btn-gold"><span class="sheen"></span>Lihat 6 Judul &amp; Harga</a>
+        <a href="#pesan" class="btn btn-ghost">Minta Rekomendasi Gratis</a>
+      </div>
+      <div class="hero-stars rv">
+        <b>★★★★★</b> <span>Cetakan resmi Penerbit Qaf</span> <span style="color:var(--faint)">·</span>
+        <span>6 judul · 1.187 halaman</span> <span style="color:var(--faint)">·</span> <span>Terbit 2019–2026</span>
+      </div>
+      <div class="hero-trust rv">
+        <span>✓ <b>Cetakan resmi</b> Penerbit Qaf</span>
+        <span>✓ Kirim <b>se-Indonesia</b></span>
+        <span>✓ Balas <b>&lt;24 jam</b></span>
+      </div>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <div class="ring"></div><div class="ring"></div>
+      <div class="glow"></div>
+      <div class="book3d">
+        <div class="face front"><img src="img/tafsir-bacaan-shalat.jpg" alt="" width="220" height="318"></div>
+        <div class="face back">
+          <img src="img/tafsir-bacaan-shalat.jpg" alt="Sampul belakang" width="220" height="318">
+        </div>
+        <div class="spine"><b>IZZA ROHMAN</b></div>
+        <div class="edge"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== ZAHIYA-STYLE FLOATING BOOKS ON SHELF ==== -->
+<section class="sec floatband" style="background:#0b1614">
+  <div class="wrap">
+    <span class="zk">Koleksi karya Dr. Izza Rohman — <b>mulai dari Rp45.000</b></span>
+    <h2 style="font-size:clamp(1.6rem,3.6vw,2.7rem)">Pegang, putar, rasakan kualitasnya.</h2>
+    <p class="lead">Tiga judul favorit pembaca. Klik sampul mana pun untuk memutarnya dan melihat detail lengkap — ISBN, tebal, dan harga resminya.</p>
+    <div class="floatrow" id="floatrow"></div>
+    <p class="floatcap">Putar Bukunya · <b>Rasakan Kualitasnya</b></p>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="mq"></div></div>
+
+<!-- ==== RAK BERJALAN (moving shelf — kept) ==== -->
+<section class="sec" style="padding-block:clamp(48px,6vw,80px)">
+  <div class="wrap shead center rv" style="margin-bottom:30px">
+    <span class="kicker">Rak Berjalan</span>
+    <h2 style="font-size:clamp(1.5rem,3.2vw,2.4rem)">Semua karyanya, lewat di depan matamu.</h2>
+    <p class="lead">Arahkan kursor untuk menghentikan rak — klik sampul mana pun untuk melihat detail lengkapnya.</p>
+  </div>
+  <div class="shelf"><div class="rail" id="rail1"></div></div>
+  <div class="shelf rev" style="margin-top:22px"><div class="rail" id="rail2"></div></div>
+  <p class="shelfnote">↔ Rak bergerak otomatis · arahkan kursor untuk berhenti</p>
+</section>
+
+<!-- ==== KINETIC / AGITASI ==== -->
+<section class="sec sec-alt">
+  <div class="wrap kwrap">
+    <span class="kicker rv">Jujur saja</span>
+    <div class="kwords" data-words="Kamu sudah rutin membaca. Tapi apakah kamu benar-benar *paham?"></div>
+    <div class="pain">
+      <div class="rv"><b>→</b> Hafal bacaan shalat sejak kecil, tapi tidak tahu artinya.</div>
+      <div class="rv"><b>→</b> Rutin Yasin tiap malam Jumat — berhenti di lafaz, tidak sampai ke makna.</div>
+      <div class="rv"><b>→</b> Beli buku tafsir tebal, baru sampai halaman 20 sudah menyerah.</div>
+      <div class="rv"><b>→</b> Ingin belajar, tapi takut kitabnya terlalu berat untuk pemula.</div>
+      <div class="rv"><b>→</b> Bingung mana buku yang layak dipercaya di antara ratusan pilihan.</div>
+    </div>
+    <p class="painout rv">Masalahnya bukan niatmu.<br>Masalahnya <em>belum ada yang menerjemahkannya dengan bahasa yang ramah pembaca.</em></p>
+  </div>
+</section>
+
+<!-- ==== BIG STATEMENT ==== -->
+<section class="sec" style="position:relative">
+  <div class="wrap stmt">
+    <p>Bedanya bacaan yang <span style="color:var(--muted)">sekadar selesai</span></p>
+    <p>dan bacaan yang <span class="hi">mengubah cara kamu shalat</span></p>
+    <p>bukan pada seberapa fasih.</p>
+    <p class="hi">Tapi pada seberapa paham.</p>
+    <p style="font-size:clamp(1rem,1.6vw,1.2rem);color:var(--muted);font-family:var(--f-body);margin-top:26px">
+      Enam buku ini ditulis persis untuk jarak itu.</p>
+  </div>
+</section>
+
+<!-- ==== PEEL COMPARISON ==== -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="shead center rv">
+      <span class="kicker">Bandingkan Sendiri</span>
+      <h2>Geser untuk melihat bedanya.</h2>
+      <p class="lead">Kiri: cara kebanyakan orang membaca. Kanan: setelah membaca karya Dr. Izza Rohman.</p>
+    </div>
+    <div class="peel rv" id="peel">
+      <div class="side bad">
+        <div>
+          <span class="lbl">Sebelum</span>
+          <h3>Membaca tanpa paham</h3>
+          <ul>
+            <li>Selesai cepat, hati tetap kosong</li>
+            <li>Hafal lafaz, buta makna</li>
+            <li>Shalat jadi rutinitas</li>
+            <li>Berhenti di halaman 20</li>
+          </ul>
+        </div>
+      </div>
+      <div class="side good">
+        <div>
+          <span class="lbl">Sesudah</span>
+          <h3>Membaca sambil paham</h3>
+          <ul>
+            <li>Berhenti sejenak di satu ayat — dan tersentuh</li>
+            <li>Tahu persis apa yang sedang diucapkan</li>
+            <li>Shalat terasa seperti percakapan</li>
+            <li>Selesai satu buku, lanjut ke berikutnya</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bar" aria-hidden="true"></div>
+      <div class="knob" aria-hidden="true">↔</div>
+    </div>
+    <p class="peelhint">↔ Gerakkan kursor di atas panel</p>
+  </div>
+</section>
+
+<!-- ============ KATALOG ============ -->
+<section id="katalog" class="sec">
+  <div class="wrap">
+    <div class="shead rv">
+      <span class="kicker">Katalog Lengkap</span>
+      <h2>Enam judul. Pilih yang paling dekat dengan kondisimu.</h2>
+      <p class="lead">Setiap buku diberi label “untuk siapa” supaya kamu tidak perlu menebak. Semua data — ISBN, tebal halaman, bulan terbit — sesuai katalog resmi penerbit.</p>
+    </div>
+
+    <div class="filters rv" role="group" aria-label="Saring buku berdasarkan tema">
+      <button data-filter="all" aria-pressed="true">Semua (6)</button>
+      <button data-filter="shalat" aria-pressed="false">Shalat &amp; Ibadah</button>
+      <button data-filter="hati" aria-pressed="false">Hati &amp; Rezeki</button>
+      <button data-filter="surah" aria-pressed="false">Tafsir Surah</button>
+    </div>
+
+    <div class="bgrid" id="bgrid"></div>
+    <p id="noRes" style="display:none;color:var(--muted);text-align:center;padding:40px 0">Tidak ada buku pada tema ini. <button class="btn btn-ghost btn-sm" data-filter="all" style="margin-left:10px">Tampilkan semua</button></p>
+  </div>
+</section>
+
+<!-- ============ BUNDLE ============ -->
+<section class="sec sec-alt" style="padding-block:clamp(56px,7vw,90px)">
+  <div class="wrap"><div class="bundle rv" id="bundleBox"></div></div>
+</section>
+
+<!-- ==== FLUID WAVE ==== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="shead center rv">
+      <span class="kicker">✦ Ketenangan yang bergerak ✦</span>
+      <h2>Gelombang Tadabur.</h2>
+      <p class="lead">Gerakkan kursor di atas kanvas. Setiap partikel bergerak dengan fisika nyata — seperti hati yang bereaksi saat satu ayat akhirnya terasa.</p>
+    </div>
+    <div class="wave rv">
+      <canvas id="wavefx" aria-hidden="true"></canvas>
+      <div class="cap"><b>Bacaan yang hidup, bukan yang dihafal.</b><span>Gerakkan kursor — partikelnya membalas.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== KOLEKSI / CHAPTERS ==== -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="shead center rv">
+      <span class="kicker">6 Judul · 1.187 Halaman · Satu Metode</span>
+      <h2>Semua yang ada di dalam katalog.</h2>
+      <p class="lead">Setiap judul menjawab satu kegelisahan yang berbeda. Klik untuk melihat detail lengkap dan ISBN-nya.</p>
+    </div>
+    <div class="chaps" id="chaps"></div>
+  </div>
+</section>
+
+<!-- ==== VALUE MATH ==== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="shead center rv">
+      <span class="kicker">Hitung Sendiri</span>
+      <h2>Kalau dibeli satuan vs paket.</h2>
+      <p class="lead">Angka di bawah ini harga resmi penerbit — tidak ada yang kami karang.</p>
+    </div>
+    <div class="mathwrap rv" id="mathwrap"></div>
+    <p style="text-align:center;color:var(--muted);margin-top:26px;font-family:var(--f-display);font-size:clamp(1.1rem,2.4vw,1.6rem)">
+      Kamu tidak sedang membeli enam buku.<br><span style="color:var(--gold)">Kamu membeli satu metode utuh memahami Al-Qur’an.</span></p>
+    <div style="text-align:center;margin-top:28px" class="rv">
+      <a class="btn btn-gold" id="mathCta" href="#beli"><span class="sheen"></span>Ambil Paket Hemat →</a>
+    </div>
+  </div>
+</section>
+<!-- ==== UNTUK SIAPA ==== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="shead center rv">
+      <span class="kicker">Cocok untuk kamu?</span>
+      <h2>Kami tidak untuk semua orang.</h2>
+    </div>
+    <div class="foryou">
+      <div class="fybox yes rv">
+        <h3 style="color:var(--teal)">✓ Ini untukmu kalau…</h3>
+        <ul>
+          <li>Kamu rutin shalat tapi ingin tahu apa yang sedang kamu ucapkan</li>
+          <li>Kamu pemula — belum pernah belajar tafsir sama sekali</li>
+          <li>Kamu pernah beli kitab tebal lalu berhenti di halaman awal</li>
+          <li>Kamu ingin buku yang jelas metodenya, bukan kutipan acak</li>
+          <li>Kamu cari hadiah bermakna untuk keluarga atau pengajian</li>
+          <li>Kamu ingin dibantu memilih, bukan dipaksa beli semuanya</li>
+        </ul>
+      </div>
+      <div class="fybox no rv">
+        <h3 class="warn">✕ Ini bukan untukmu kalau…</h3>
+        <ul>
+          <li>Kamu mencari kitab tafsir akademis berbahasa Arab tingkat lanjut</li>
+          <li>Kamu ingin ebook bajakan atau PDF gratis</li>
+          <li>Kamu cari buku motivasi instan tanpa dasar dalil</li>
+          <li>Kamu tidak ingin membaca sama sekali</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== BELI SEKARANG (dedicated buy section) ==== -->
+<section id="beli" class="sec sec-alt">
+  <div class="wrap">
+    <div class="shead center rv">
+      <span class="kicker">Beli Sekarang</span>
+      <h2>Pilih paketmu, langsung pesan.</h2>
+      <p class="lead">Tidak perlu bikin akun. Klik, chat WhatsApp terbuka dengan pesanan sudah tertulis rapi.</p>
+    </div>
+    <div class="cdwrap rv">
+      <div class="cdflag"><span class="dot"></span> Penawaran berakhir dalam</div>
+      <div class="cd" aria-live="off">
+        <div class="cdb"><b id="cdh">00</b><span>Jam</span></div>
+        <div class="cdcolon">:</div>
+        <div class="cdb"><b id="cdm">00</b><span>Menit</span></div>
+        <div class="cdcolon">:</div>
+        <div class="cdb"><b id="cds">00</b><span>Detik</span></div>
+      </div>
+      <div class="stock">
+        <small>Stok paket batch ini tinggal sedikit</small>
+        <div class="stockbar"><i id="stockbar"></i></div>
+      </div>
+      <p class="cddemo">ⓘ Hitung mundur &amp; indikator stok ini elemen demo untuk memperlihatkan mekanisme urgensi.</p>
+    </div>
+    <div class="grid3" id="buyGrid" style="margin-top:44px"></div>
+    <ul class="deliv rv" style="max-width:640px;margin-inline:auto" id="deliv"></ul>
+  </div>
+</section>
+
+<!-- ==== GARANSI ==== -->
+<section class="sec">
+  <div class="wrap guar rv">
+    <div class="shield">🛡️</div>
+    <h3>Garansi Ganti Baru 100%</h3>
+    <p>Buku sampai dalam keadaan rusak, sobek, atau cacat cetak? Kirim satu foto lewat WhatsApp — kami ganti baru dan tanggung ongkirnya.</p>
+    <p>Tanpa formulir panjang. Tanpa ditanya balik “sudah dicek belum?”. Tanpa sungkan.</p>
+    <span class="stamp">Tanpa drama, tanpa sungkan</span>
+  </div>
+</section>
+
+<!-- ==== LANGKAH SETELAH PESAN ==== -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="shead center rv">
+      <span class="kicker">Setelah Kamu Pesan</span>
+      <h2>Yang terjadi berikutnya.</h2>
+    </div>
+    <div class="next">
+      <div class="nx rv"><b>1.</b><span>Kamu klik tombol pesan — WhatsApp terbuka dengan pesanan sudah tertulis</span></div>
+      <div class="nx rv"><b>2.</b><span>Kami balas dengan total + ongkir ke kotamu (maksimal 24 jam)</span></div>
+      <div class="nx rv"><b>3.</b><span>Kamu transfer atau pilih COD — bebas</span></div>
+      <div class="nx rv"><b>4.</b><span>Buku dibungkus bubble wrap rangkap, resi dikirim hari itu juga</span></div>
+      <div class="nx rv"><b>5.</b><span>Buku sampai, kamu mulai baca — kami tetap siap ditanya</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARA PESAN ============ -->
+<section id="cara-pesan" class="sec">
+  <div class="wrap">
+    <div class="shead center rv">
+      <span class="kicker">Cara Pesan</span>
+      <h2>Tiga langkah. Tidak perlu bikin akun.</h2>
+      <p class="lead">Tidak ada keranjang, tidak ada checkout berbelit. Cukup chat atau isi form — kami urus sisanya.</p>
+    </div>
+    <div class="steps3">
+      <div class="st rv"><b>1</b><h3>Pilih atau tanya</h3><p>Klik “Pesan via WhatsApp” di buku yang kamu mau, atau isi form kalau masih bingung pilih judul.</p></div>
+      <div class="st rv"><b>2</b><h3>Kami hitung total</h3><p>Kami balas maksimal 24 jam dengan harga buku + ongkir ke kotamu + estimasi tiba. Belum perlu bayar.</p></div>
+      <div class="st rv"><b>3</b><h3>Bayar &amp; kami kirim</h3><p>Transfer bank atau COD. Buku dibungkus rapi dan resi dikirim di hari yang sama.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:38px" class="rv">
+      <a href="#pesan" class="btn btn-gold"><span class="sheen"></span>Mulai Pesan Sekarang</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LAYANAN ============ -->
+<section id="layanan" class="sec sec-alt">
+  <div class="wrap">
+    <div class="shead rv">
+      <span class="kicker">Layanan Kami</span>
+      <h2>Bukan cuma jual buku.</h2>
+      <p class="lead">Kami menemani dari “bingung mulai dari mana” sampai buku sampai di tangan.</p>
+    </div>
+    <div class="grid3">
+      <div class="svc rv"><div class="ic">✦</div><h3>Kurasi Personal</h3><p>Ceritakan kondisimu — ingin lebih khusyuk shalat, menata niat, atau meluaskan rezeki. Kami sarankan judul yang paling pas, tanpa memaksa beli semuanya.</p></div>
+      <div class="svc rv"><div class="ic">✉</div><h3>Kirim Aman Se-Indonesia</h3><p>Bubble wrap rangkap, kardus tebal, resi dikirim hari itu juga. JNE, J&amp;T, SiCepat, dan instan untuk Jabodetabek.</p></div>
+      <div class="svc rv"><div class="ic">◈</div><h3>Paket Hadiah &amp; Wakaf Buku</h3><p>Bungkus kado eksklusif plus kartu ucapan tulis tangan. Tersedia skema wakaf buku untuk musala, TPQ, dan pesantren.</p></div>
+      <div class="svc rv"><div class="ic">◎</div><h3>Grosir Komunitas &amp; Kampus</h3><p>Harga khusus untuk pengajian, DKM, dan kampus mulai 10 eksemplar. Faktur dan surat jalan tersedia.</p></div>
+      <div class="svc rv"><div class="ic">☾</div><h3>Kelas Baca Bareng</h3><p>Sesi tadabur daring bulanan gratis untuk pembeli — membedah satu bab per pertemuan bersama fasilitator.</p></div>
+      <div class="svc rv"><div class="ic">✓</div><h3>Garansi Keaslian</h3><p>100% cetakan resmi penerbit. Rusak saat kirim? Kami ganti baru — tanpa drama, tanpa sungkan.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PENULIS ============ -->
+<section id="penulis" class="sec">
+  <div class="wrap sticky-about">
+    <div class="sticky-col rv">
+      <div class="pf">
+        <div class="av" aria-hidden="true">IR</div>
+        <h3>Dr. Izza Rohman</h3>
+        <p class="role">Penulis &amp; Pengkaji Tafsir</p>
+        <p style="color:var(--muted);font-size:.93rem;margin-top:15px">Menulis dengan satu keyakinan sederhana: Al-Qur’an bukan untuk sekadar dibaca cepat, tapi untuk dipahami dan dihidupi. Karyanya konsisten memakai pendekatan menafsirkan Qur’an dengan Qur’an, dengan bahasa yang tetap membumi.</p>
+        <ul>
+          <li><b>6</b> judul aktif di Penerbit Qaf</li>
+          <li><b>1.187</b> halaman tafsir &amp; tazkiyah</li>
+          <li><b>2019–2026</b> rentang terbit karya</li>
+          <li><b>Metode</b> Tafsirul-Qur’an bil-Qur’an</li>
+        </ul>
+        <p style="color:var(--faint);font-size:.74rem;margin-top:16px">Angka dihitung dari katalog resmi <a href="https://penerbitqaf.com" target="_blank" rel="noopener" style="color:var(--gold)">Penerbit Qaf</a>.</p>
+      </div>
+    </div>
+    <div>
+      <span class="kicker rv">Kisah Zah Bookstore</span>
+      <h2 class="rv" style="margin-bottom:24px">Berawal dari satu pertanyaan yang sering kami dengar.</h2>
+      <div class="step rv"><h3><i>01</i> “Sudah baca Yasin bertahun-tahun, tapi belum paham.”</h3><p>Kalimat itu terlalu sering muncul di lapak kami. Buku tafsir ada banyak — yang membuat orang bertahan membacanya, sedikit. Dari situ kami memilih fokus.</p></div>
+      <div class="step rv"><h3><i>02</i> Kami berhenti menjual semua buku.</h3><p>Rak dipangkas habis. Yang tersisa hanya karya yang benar-benar kami baca, tandai, dan yakini bisa mengubah cara orang shalat dan menata niat.</p></div>
+      <div class="step rv"><h3><i>03</i> Satu penulis, satu benang merah.</h3><p>Karya Dr. Izza Rohman menjadi inti katalog: runtut, berbasis metode yang jelas, dan tetap bisa dinikmati pembaca awam tanpa latar belakang pesantren.</p></div>
+      <div class="step rv"><h3><i>04</i> Melayani seperti melayani tetangga.</h3><p>Balas cepat, jujur soal stok, dan tidak menawarkan yang tidak kamu butuhkan. Kalau satu buku sudah cukup, kami bilang cukup.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ULASAN ============ -->
+<section id="ulasan" class="sec sec-alt">
+  <div class="wrap">
+    <div class="shead rv">
+      <span class="kicker">Kata Pembaca</span>
+      <h2>Yang berubah bukan rak buku — tapi cara membaca.</h2>
+    </div>
+    <div class="quotes">
+      <div class="q rv"><div class="stars" aria-label="5 dari 5 bintang">★★★★★</div><p>“Baru sadar selama ini saya hafal bacaan shalat tanpa tahu artinya. Bab tentang i’tidal bikin saya berhenti dan diam lama.”</p><div class="who"><i aria-hidden="true">P</i><div><b>Contoh Pembaca</b><span>Bekasi · Tafsir Bacaan Shalat</span></div></div></div>
+      <div class="q rv"><div class="stars" aria-label="5 dari 5 bintang">★★★★★</div><p>“Dikirim rapi, sampai dua hari. Diselipkan kartu ucapan tulis tangan — kecil, tapi kerasa dihargai sebagai pembeli.”</p><div class="who"><i aria-hidden="true">P</i><div><b>Contoh Pembaca</b><span>Surabaya · Ilmu Ikhlas</span></div></div></div>
+      <div class="q rv"><div class="stars" aria-label="4 dari 5 bintang">★★★★☆</div><p>“Saya beli paket untuk pengajian ibu-ibu. Adminnya sabar banget bantu pilih judul yang cocok buat pemula.”</p><div class="who"><i aria-hidden="true">P</i><div><b>Contoh Pembaca</b><span>Bandung · Paket 5 Buku</span></div></div></div>
+    </div>
+    <p class="demo-note">ⓘ Tiga kartu di atas adalah <b>contoh tampilan</b> untuk menunjukkan letak &amp; gaya ulasan. Ulasan asli (dengan nama &amp; foto pembeli) akan ditambahkan setelah situs diluncurkan — kami tidak menampilkan testimoni palsu.</p>
+    <div class="badges">
+      <div class="tb">✓ <b>100%</b> Cetakan Resmi Penerbit</div>
+      <div class="tb">↺ <b>Garansi</b> Rusak Kirim Ganti Baru</div>
+      <div class="tb">⚡ <b>&lt;24 Jam</b> Respons WhatsApp</div>
+      <div class="tb">☾ <b>COD</b> &amp; Transfer Bank</div>
+      <div class="tb">✦ <b>Wakaf Buku</b> Tersedia</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="sec">
+  <div class="wrap">
+    <div class="shead center rv">
+      <span class="kicker">Pertanyaan Umum</span>
+      <h2>Semua keraguan, dijawab.</h2>
+    </div>
+    <div class="faq" id="faqBox"></div>
+  </div>
+</section>
+
+<!-- ============ PESAN ============ -->
+<section id="pesan" class="sec sec-alt">
+  <div class="wrap formwrap">
+    <div class="rv">
+      <span class="kicker">Pesan / Konsultasi</span>
+      <h2 style="margin-bottom:20px">Bingung mulai dari judul mana?</h2>
+      <p class="lead">Isi form ini — kami balas maksimal 24 jam dengan rekomendasi judul, total ongkir, dan estimasi tiba. Tanpa bayar dulu, tanpa dikejar-kejar.</p>
+      <div class="badges" style="margin-top:26px">
+        <div class="tb">⏱ <b>Senin–Sabtu</b> 08.00–20.00 WIB</div>
+        <div class="tb">✉ <b>halo@zahbookstore.id</b></div>
+        <div class="tb">☎ <b>0823-9544-0020</b></div>
+      </div>
+      <p style="color:var(--faint);font-size:.79rem;margin-top:22px">ⓘ Kontak dan jam operasional di atas adalah placeholder demo — ganti dengan data asli sebelum dipublikasikan.</p>
+    </div>
+    <form id="leadForm" novalidate>
+      <div class="okmsg" id="ok" role="status">✓ Terima kasih! Pesanmu tercatat (demo). Di situs live, data ini terkirim ke WhatsApp/email kami dan dibalas &lt;24 jam.</div>
+      <div class="frow">
+        <div class="field"><label for="nm">Nama Lengkap <span class="req">*</span></label><input id="nm" name="nama" placeholder="Nama kamu" autocomplete="name"><span class="err">Mohon isi nama kamu.</span></div>
+        <div class="field"><label for="wa">Nomor WhatsApp <span class="req">*</span></label><input id="wa" name="wa" type="tel" inputmode="numeric" placeholder="08xx xxxx xxxx" autocomplete="tel"><span class="err">Mohon isi nomor WhatsApp yang aktif.</span></div>
+      </div>
+      <div class="frow">
+        <div class="field"><label for="em">Email <span style="color:var(--faint)">(opsional)</span></label><input id="em" type="email" name="email" placeholder="nama@email.com" autocomplete="email"></div>
+        <div class="field"><label for="kt">Kota Pengiriman <span class="req">*</span></label><input id="kt" name="kota" placeholder="Jakarta Selatan" autocomplete="address-level2"><span class="err">Mohon isi kota untuk hitung ongkir.</span></div>
+      </div>
+      <div class="field"><label for="bk">Buku yang Diminati</label><select id="bk" name="buku"></select></div>
+      <div class="field"><label for="ms">Ceritakan kebutuhanmu <span style="color:var(--faint)">(opsional)</span></label><textarea id="ms" name="pesan" placeholder="Contoh: ingin lebih khusyuk saat shalat, baru mulai belajar tafsir…"></textarea></div>
+      <button type="submit" class="btn btn-gold" style="width:100%"><span class="sheen"></span>Kirim &amp; Dapatkan Rekomendasi</button>
+      <p class="formnote">Kami balas &lt;24 jam. Tanpa spam, tanpa telepon mendadak.</p>
+      <div class="orwa">atau langsung</div>
+      <a class="btn btn-wa" id="waDirect" style="width:100%" href="#" target="_blank" rel="noopener">Chat WhatsApp Sekarang</a>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="font-size:1.6rem">Zah<span>.</span> <small>Bookstore</small></div>
+        <p style="color:var(--muted);max-width:40ch;margin-top:12px;font-size:.9rem">Toko buku daring yang fokus pada karya Dr. Izza Rohman. Paham dulu, baru khusyuk.</p>
+      </div>
+      <div><h4>Katalog</h4><ul id="fcat"></ul></div>
+      <div><h4>Bantuan</h4><ul>
+        <li><a href="#faq">FAQ</a></li><li><a href="#cara-pesan">Cara Pesan</a></li>
+        <li><a href="#layanan">Pengiriman</a></li><li><a href="#pesan">Hubungi Kami</a></li>
+      </ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 Zah Bookstore — situs demo.</span>
+      <span>Data buku bersumber dari katalog resmi <a href="https://penerbitqaf.com" target="_blank" rel="noopener" style="color:var(--gold)">Penerbit Qaf</a>, diakses 10 Agustus 2026.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- DETAIL MODAL -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="mbox">
+    <button class="x" id="mx" aria-label="Tutup detail buku">×</button>
+    <div class="mgrid">
+      <div>
+        <div class="viewer" id="viewer"><div class="v3d" id="v3d">
+          <div class="f fr"><img id="vimg" src="" alt=""></div>
+          <div class="f bk"><img id="vbkImg" src="" alt="Sampul buku"></div><div class="sp"></div><div class="ed"></div>
+        </div></div>
+        <p class="vhint">↔ Gerakkan kursor kiri/kanan untuk memutar buku</p>
+      </div>
+      <div id="mdet"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHATBOT -->
+<button id="chatBtn" aria-label="Buka chat bantuan" aria-expanded="false" aria-controls="chat">
+  <span class="pulse" aria-hidden="true"></span>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 21l1.9-4.6A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+  <span class="lbl">Tanya kami</span>
+</button>
+<div id="chat" role="dialog" aria-label="Asisten Zah Bookstore">
+  <div class="chead">
+    <div class="ava" aria-hidden="true">Z</div>
+    <div><b>Asisten Zah</b><span>Online · balas instan</span></div>
+    <button class="cx" id="cx" aria-label="Tutup chat">×</button>
+  </div>
+  <div class="cbody" id="cbody" role="log" aria-live="polite"></div>
+  <div class="quick" id="quick"></div>
+  <div class="cfoot">
+    <label for="cin" class="sr">Tulis pertanyaan</label>
+    <input id="cin" placeholder="Tulis pertanyaanmu…" autocomplete="off">
+    <button id="csend" aria-label="Kirim pesan">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="sticky-cta" id="stickyCta">
+  <div class="wrap in">
+    <div class="txt">Paket 5 Buku + bonus 1 judul — <b>Rp247.500</b> <span style="text-decoration:line-through;color:var(--faint)">Rp300.600</span></div>
+    <div class="acts">
+      <a href="#beli" class="btn btn-ghost btn-sm">Lihat Paket</a>
+      <a href="#pesan" class="btn btn-gold btn-sm"><span class="sheen"></span>Pesan Sekarang</a>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="surahs.js"></script>
+<script src="app.js"></script>
+<script src="fs1.js"></script>
+<script src="fs2.js"></script>
+<script src="fs3.js"></script>
+<script src="tafsir-drawer.js"></script>
+<script src="zah-augment.js"></script>
+</body>
+</html>

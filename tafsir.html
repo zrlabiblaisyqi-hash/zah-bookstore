@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tafsir Al-Qur'an — Zah Bookstore</title>
+<meta name="description" content="Dasbor tafsir 114 surah Al-Qur'an. Klik surah untuk membaca tafsirnya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tafsir.css">
+</head>
+<body id="top">
+
+<a href="#list" class="skip">Langsung ke daftar surah</a>
+
+<header>
+  <div class="wrap hin">
+    <a href="index.html" class="logo">Zah<span>.</span> <small>Tafsir</small></a>
+    <nav class="tp" aria-label="Navigasi">
+      <a href="index.html">Toko Buku</a>
+      <a href="#top" class="act">Tafsir</a>
+      <button class="hbtn" id="toggleAuthor">Mode Penulis</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="thero">
+    <div class="wrap">
+      <span class="kick">Perpustakaan Tafsir · 114 Surah</span>
+      <h1>Tafsir Al-Qur'an.</h1>
+      <p class="lead">Satu tempat untuk semua 114 surah. Klik nama surah untuk membaca tafsirnya — ditulis dengan bahasa yang membumi, satu surah satu tulisan.</p>
+      <div class="therostats">
+        <div><b>114</b><span>Surah lengkap</span></div>
+        <div><b id="ayatCount">6.235</b><span>Jumlah ayat</span></div>
+        <div><b id="hasCount">0</b><span>Tafsir sudah ditulis</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BROWSE (reader list) -->
+  <section class="wrap browse" id="list" style="padding-bottom:30px">
+    <div class="tcontrols">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input id="search" type="search" placeholder="Cari surah, terjemahan, atau arti…" aria-label="Cari surah">
+      </div>
+      <div class="seg" role="tablist">
+        <button id="segAll" class="on" data-f="all">Semua</button>
+        <button id="segMk" data-f="Makkiyah">Makkiyah</button>
+        <button id="segMd" data-f="Madaniyah">Madaniyah</button>
+        <button id="segWritten" data-f="written">Sudah Ditulis</button>
+      </div>
+    </div>
+    <div class="slist" id="slist"></div>
+  </section>
+
+  <!-- DASHBOARD (author) -->
+  <section class="wrap dash" id="dash" style="padding-bottom:30px">
+    <div class="dtoolbar">
+      <button class="btn" id="newBtn">+ Tulis Tafsir Baru</button>
+      <span class="grow"></span>
+      <input id="dashSearch" type="search" placeholder="Cari surah…" style="background:#0a0a0e;border:1px solid var(--line2);color:var(--txt);border-radius:100px;padding:11px 16px;min-width:220px;font-family:var(--f-body)">
+      <button class="btn ghost" id="exportBtn">Ekspor JSON</button>
+    </div>
+    <div class="dgrid" id="dgrid"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="font-size:1.5rem">Zah<span>.</span></div>
+        <p style="color:var(--muted);max-width:40ch;margin-top:12px">Toko buku &amp; perpustakaan tafsir karya Dr. Izza Rohman. Paham dulu, baru khusyuk.</p>
+      </div>
+      <div><h4>Tafsir</h4><ul>
+        <li><a href="#top">Semua Surah</a></li><li><a href="#list">Jelajahi</a></li>
+        <li><a href="#" id="footAuthor">Mode Penulis</a></li>
+      </ul></div>
+      <div><h4>Toko</h4><ul>
+        <li><a href="index.html#katalog">Katalog Buku</a></li>
+        <li><a href="index.html#beli">Beli Paket</a></li>
+        <li><a href="index.html#cara-pesan">Cara Pesan</a></li>
+      </ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 Zah Bookstore — situs demo.</span>
+      <span>Tafsir ditulis secara bertahap. Konten awal berupa kerangka; artikel ditambahkan penulis dari waktu ke waktu.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- READER PANEL -->
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-labelledby="rTitle">
+  <div class="rbox">
+    <button class="rx" id="rClose" aria-label="Tutup">×</button>
+    <div class="rhead">
+      <div class="rnum" id="rNum">1</div>
+      <div>
+        <h2 id="rTitle">Al-Fatihah</h2>
+        <span class="rar" id="rAr" dir="rtl"></span>
+        <div class="rmeta" id="rMeta"></div>
+      </div>
+    </div>
+    <div class="article" id="rBody"></div>
+    <div class="note" id="rNote"></div>
+  </div>
+</div>
+
+<!-- EDITOR MODAL -->
+<div class="emask" id="emask">
+  <div class="emodal">
+    <h3 id="eTitle">Tulis Tafsir</h3>
+    <p class="esub" id="eSub"></p>
+    <form id="eForm">
+      <div class="field">
+        <label for="eSurah">Surah</label>
+        <select id="eSurah"></select>
+      </div>
+      <div class="erow">
+        <div class="field"><label for="eTitleIn">Judul Artikel</label><input id="eTitleIn" placeholder="Mis. Mengapa Al-Fatihah disebut Ummul Qur'an?"></div>
+        <div class="field"><label for="eAuthor">Penulis</label><input id="eAuthor" value="Dr. Izza Rohman"></div>
+      </div>
+      <div class="field">
+        <label for="eIntro">Pengantar / Ringkasan</label>
+        <textarea id="eIntro" placeholder="1–3 paragraf pengantar yang menjelaskan tema besar surah ini…"></textarea>
+      </div>
+      <div class="field">
+        <label for="eBody">Isi Tafsir (gunakan baris kosong untuk memisah paragraf; awali baris dengan "## " untuk subjudul; "> untuk kutipan)</label>
+        <textarea id="eBody" placeholder="## Tema Utama&#10;&#10;Surah ini membahas…&#10;&#10;> “Dialah yang mengutus kepada kaum buta huruf…“ (Q.S. Al-Jumu'ah: 2)&#10;&#10;## Pelajaran"></textarea>
+        <p class="hint">Format ringan: <b>## </b> = subjudul · baris kosong = paragraf baru · <b>&gt; </b> = kutipan ayat.</p>
+      </div>
+      <div class="acts">
+        <span class="saved" id="eSaved">✓ Tersimpan</span>
+        <button type="button" class="btn ghost" id="eCancel">Batal</button>
+        <button type="submit" class="btn">Simpan Tafsir</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="surahs.js"></script>
+<script src="tafsir.js"></script>
+</body>
+</html>
