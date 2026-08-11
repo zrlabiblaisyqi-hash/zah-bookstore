@@ -246,7 +246,7 @@ viewer.addEventListener('pointerleave', () => { targetVel = 0; });
 const heroStage = document.querySelector('.stage');
 const heroBook = heroStage && heroStage.querySelector('.book3d');
 if (heroBook) {
-  let hRot = 0, hVel = 0, hTarget = 0;
+  let hRot = -22, hVel = 0, hTarget = 0;   // start angled so the spine is visible on load
   heroStage.addEventListener('pointermove', e => {
     const r = heroStage.getBoundingClientRect();
     let dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
@@ -255,10 +255,10 @@ if (heroBook) {
   });
   heroStage.addEventListener('pointerleave', () => { hTarget = 0; });
   (function heroLoop() {
-    const idle = RM ? 0 : .15;            // calm living drift; respects reduced-motion
+    const idle = RM ? 0 : .5;             // gentle continuous auto-spin so the 3D box is always visible
     hVel = lerp(hVel, hTarget !== 0 ? hTarget : idle, .06);
     hRot += hVel;
-    heroBook.style.transform = `rotateY(${hRot}deg)`;
+    heroBook.style.transform = `rotateY(${hRot}deg) rotateX(6deg)`;   // slight display tilt reads as 3D
     requestAnimationFrame(heroLoop);
   })();
 }
