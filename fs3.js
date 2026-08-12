@@ -33,7 +33,7 @@ if (mw) {
       const inBundle = b.title !== 'Memahami Surah Yasin';
       return `<div class="mrow"><span>${b.title}</span><span>${rupiah(b.price)}</span><span>${inBundle ? 'Termasuk ✓' : 'Bonus ✓'}</span></div>`;
     }).join('') +
-    `<div class="mrow tot"><span>Total kalau beli satuan</span><span>${rupiah(single)}</span><span>${rupiah(BUNDLE.price)}</span></div>`;
+    `<div class="mrow tot"><span>Total kalau beli satuan</span><span>${rupiah(single)}</span><span>${rupiah(BUNDLES[0].price)}</span></div>`;
 }
 
 /* --- buy grid: 3 clear options --- */
@@ -50,10 +50,10 @@ if (bg) {
       hi: false
     },
     {
-      tag: 'Paling Dipilih', name: BUNDLE.title, price: BUNDLE.price, old: single,
+      tag: 'Paling Dipilih', name: BUNDLES[0].title, price: BUNDLES[0].price, old: single,
       note: 'Lima buku inti plus bonus satu judul. Metodenya jadi utuh dari awal sampai akhir.',
-      feats: ['5 buku + 1 bonus (Yasin)', `Hemat ${rupiah(single - BUNDLE.price)}`, 'Bungkus rapi + bubble wrap rangkap', 'Prioritas kirim hari yang sama', 'Akses kelas baca bareng'],
-      msg: `Halo Zah Bookstore, saya mau pesan ${BUNDLE.title} (${rupiah(BUNDLE.price)}). Mohon info total + ongkir ya.`,
+      feats: ['5 buku + 1 bonus (Yasin)', `Hemat ${rupiah(single - BUNDLES[0].price)}`, 'Bungkus rapi + bubble wrap rangkap', 'Prioritas kirim hari yang sama', 'Akses kelas baca bareng'],
+      msg: `Halo Zah Bookstore, saya mau pesan ${BUNDLES[0].title} (${rupiah(BUNDLES[0].price)}). Mohon info total + ongkir ya.`,
       hi: true
     },
     {

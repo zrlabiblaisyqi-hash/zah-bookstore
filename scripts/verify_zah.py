@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Ad-hoc verification for zah-bookstore. Reusable; not a committed test suite.
 Run: /Users/zrlabib/.render-venv/bin/python /Users/zrlabib/hermes/scripts/verify_zah.py
-Checks: 12 books @ 75% of Qaf ladder, no stale refs, BUNDLE=182250, headless render clean."""
+Checks: 12 books @ 75% of Qaf ladder, no stale refs, 4 BUNDLES (main=182250), headless render clean."""
 import re, pathlib, sys
 ROOT = pathlib.Path("/Users/zrlabib/hermes/zah-bookstore")
 js = (ROOT/"data.js").read_text()
@@ -23,8 +23,12 @@ for needle in OLD:
     for f,t in src.items():
         if needle in t: problems.append(f"STALE '{needle}' in {f}")
 
-# 3) bundle
-if "price: 182250" not in js: problems.append("BUNDLE.price!=182250")
+# 3) bundles: 4 defined, main = 182250
+if 'window.BUNDLES = [' not in js: problems.append("BUNDLES array missing")
+import re as _re
+bcount = len(_re.findall(r'slug: "paket-', js))
+if bcount != 4: problems.append(f"bundle count {bcount}!=4")
+if "price: 182250" not in js: problems.append("main bundle price!=182250")
 
 # 4) render
 from playwright.sync_api import sync_playwright
@@ -41,4 +45,4 @@ print("RENDER cards=",n)
 print("=== RESULT ===")
 if problems:
     print("FAIL",len(problems)); [print(" -",x) for x in problems]; sys.exit(1)
-print("PASS — 12 titles @75% Qaf ladder; no stale refs; BUNDLE=182250; render clean.")
+print("PASS — 12 titles @75% Qaf ladder; no stale refs; 4 BUNDLES (main 182250); render clean.")

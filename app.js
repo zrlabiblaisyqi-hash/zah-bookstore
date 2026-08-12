@@ -115,30 +115,35 @@ $$('.bcard').forEach(card => {
   card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
-/* ---------- BUNDLE ---------- */
-const bundleItems = BOOKS.filter(b => BUNDLE.items.includes(b.title));
-const single = bundleItems.reduce((a, b) => a + b.price, 0);
-$('#bundleBox').innerHTML = `
-  <img src="${BUNDLE.cover}" alt="Foto paket 5 buku karya Dr. Izza Rohman" loading="lazy" width="460" height="460">
-  <div>
-    <span class="kicker">Paling Hemat</span>
-    <h2 style="font-size:clamp(1.7rem,3.2vw,2.6rem)">${BUNDLE.title}</h2>
-    <ul>${BUNDLE.items.map(i => `<li>${i}</li>`).join('')}</ul>
-    <p style="color:var(--gold);font-size:.9rem;margin:0 0 18px">✦ ${BUNDLE.bonus}</p>
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap">
-      <span class="price" style="font-size:2.1rem">${rupiah(BUNDLE.price)}</span>
-      <span class="oldp">${rupiah(single)}</span>
-      <span class="save">Hemat ${rupiah(single - BUNDLE.price)}</span>
+/* ---------- BUNDLES ---------- */
+$('#bundleBox').innerHTML = BUNDLES.map((B, bi) => {
+  const bundleItems = BOOKS.filter(b => B.items.includes(b.title));
+  const single = bundleItems.reduce((a, b) => a + b.price, 0);
+  return `
+  <div class="bun-card" style="background:#fff;border-radius:18px;padding:22px;border:1px solid rgba(27,42,74,.08);box-shadow:0 10px 26px rgba(27,42,74,.06);${bi? ' margin-top:22px':''}">
+    <img src="${B.cover}" alt="Foto ${B.title}" loading="lazy" width="200" height="200" style="border-radius:12px;float:left;margin-right:20px;max-width:160px">
+    <div style="overflow:hidden">
+      <span class="kicker">Paket ${bi+1}</span>
+      <h2 style="font-size:clamp(1.4rem,2.6vw,2rem);color:var(--lapis);margin:4px 0 10px">${B.title}</h2>
+      <ul style="margin:0 0 12px;padding-left:18px;color:var(--ink);font-size:.92rem;line-height:1.6">${B.items.map(i => `<li>${i}</li>`).join('')}</ul>
+      <p style="color:var(--gold);font-size:.9rem;margin:0 0 14px">✦ ${B.bonus}</p>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+        <span class="price" style="font-size:2rem">${rupiah(B.price)}</span>
+        <span class="oldp">${rupiah(single)}</span>
+        <span class="save">Hemat ${rupiah(single - B.price)}</span>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn-wa" href="${waLink(`Halo Zah Bookstore, saya mau pesan ${B.title} (${rupiah(B.price)}). Mohon info total + ongkir ya.`)}" target="_blank" rel="noopener">Pesan Paket via WhatsApp</a>
+        <a href="#pesan" class="btn btn-ghost">Tanya dulu</a>
+      </div>
     </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <a class="btn btn-wa" href="${waLink(`Halo Zah Bookstore, saya mau pesan ${BUNDLE.title} (${rupiah(BUNDLE.price)}). Mohon info total + ongkir ya.`)}" target="_blank" rel="noopener">Pesan Paket via WhatsApp</a>
-      <a href="#pesan" class="btn btn-ghost">Tanya dulu</a>
-    </div>
+    <div style="clear:both"></div>
   </div>`;
+}).join('');
 
 /* ---------- footer + form select ---------- */
 $('#fcat').innerHTML = BOOKS.map(b => `<li><a href="#katalog">${b.title}</a></li>`).join('');
-$('#bk').innerHTML = ['Belum tahu — mohon direkomendasikan', ...BOOKS.map(b => b.title), BUNDLE.title]
+$('#bk').innerHTML = ['Belum tahu — mohon direkomendasikan', ...BOOKS.map(b => b.title), ...BUNDLES.map(b => b.title)]
   .map(t => `<option>${t}</option>`).join('');
 $('#waDirect').href = waLink('Halo Zah Bookstore, saya mau tanya soal buku Dr. Izza Rohman.');
 
@@ -323,7 +328,7 @@ const PRICE_LIST = () => BOOKS.map(b => `• ${b.title} — <b>${rupiah(b.price)
 const waCTA = 'Kalau sudah mantap, <a href="' + waLink('Halo Zah Bookstore, saya mau pesan buku.') + '" target="_blank" rel="noopener">chat WhatsApp di sini</a> atau <a href="#pesan">isi form</a>.';
 
 const RULES = [
-  { k: ['harga', 'berapa', 'price', 'katalog', 'biaya', 'tarif', 'semua buku'], a: () => `Daftar harga resminya:<br><br>${PRICE_LIST()}<br>• <b>Paket 5 Buku</b> — <b>${rupiah(BUNDLE.price)}</b> (bonus Memahami Surah Yasin)<br><br>${waCTA}` },
+  { k: ['harga', 'berapa', 'price', 'katalog', 'biaya', 'tarif', 'semua buku'], a: () => `Daftar harga resminya:<br><br>${PRICE_LIST()}<br>${BUNDLES.map(b=>`• <b>${b.title}</b> — <b>${rupiah(b.price)}</b>`).join('<br>')}<br><br>${waCTA}` },
   { k: ['jam', 'buka', 'operasional', 'libur'], a: () => 'Jam operasional: <b>Senin–Sabtu, 08.00–20.00 WIB</b>. Minggu &amp; libur nasional tutup, tapi pesan yang masuk tetap kami balas maksimal 24 jam.' },
   { k: ['kirim', 'ongkir', 'area', 'jangkauan', 'ekspedisi', 'cod', 'luar', 'pengiriman'], a: () => 'Kami kirim ke <b>seluruh Indonesia</b> lewat JNE, J&amp;T, dan SiCepat.<br><br>• Jabodetabek: 1–2 hari (instan tersedia)<br>• Jawa: 2–3 hari<br>• Luar Jawa: 3–6 hari<br><br>Bayar bisa transfer bank atau COD. Sebutkan kotamu lewat <a href="' + '#pesan">form</a> — kami hitungkan ongkirnya.' },
   { k: ['pesan', 'order', 'beli', 'cara', 'booking', 'checkout', 'akun'], a: () => 'Gampang, 3 langkah dan tanpa bikin akun:<br><br><b>1.</b> Klik “Pesan via WhatsApp” di buku pilihanmu, atau <a href="#pesan">isi form</a><br><b>2.</b> Kami balas total + ongkir &lt;24 jam<br><b>3.</b> Transfer atau COD — resi dikirim hari itu juga' },
@@ -332,7 +337,7 @@ const RULES = [
   { k: ['penulis', 'izza', 'siapa', 'profil'], a: () => '<b>Dr. Izza Rohman</b> adalah penulis dan pengkaji tafsir. Karyanya konsisten memakai metode <i>Tafsirul-Qur’an bil-Qur’an</i> — menafsirkan Qur’an dengan Qur’an — dengan bahasa yang tetap membumi. Ada <b>6 judul aktif</b> di katalog kami.' },
   { k: ['asli', 'ori', 'original', 'bajakan', 'garansi', 'rusak'], a: () => 'Semua buku <b>100% cetakan resmi Penerbit Qaf</b>, ISBN tercantum di halaman detail. Kalau rusak saat pengiriman, kami <b>ganti baru</b> — tanpa drama, tanpa sungkan.' },
   { k: ['diskon', 'grosir', 'komunitas', 'banyak', 'pengajian', 'wakaf', 'kampus'], a: () => 'Untuk pengajian, DKM, kampus, atau komunitas: <b>harga grosir mulai 10 eksemplar</b>, lengkap faktur dan surat jalan. Ada juga skema <b>wakaf buku</b> untuk musala &amp; TPQ. Sebutkan jumlahnya di <a href="#pesan">form</a>.' },
-  { k: ['paket', 'bundle', 'hemat'], a: () => `<b>${BUNDLE.title}</b> — <b>${rupiah(BUNDLE.price)}</b> (dari ${rupiah(single)}, hemat ${rupiah(single - BUNDLE.price)}).<br>Isi: ${BUNDLE.items.join(', ')}.<br>✦ ${BUNDLE.bonus}<br><br>${waCTA}` },
+  { k: ['paket', 'bundle', 'hemat'], a: () => BUNDLES.map(b => { const single=b.items.reduce((s,t)=>s+(BOOKS.find(x=>x.title===t)?.price||0),0); return `<b>${b.title}</b> — <b>${rupiah(b.price)}</b> (dari ${rupiah(single)}, hemat ${rupiah(single - b.price)}).<br>Isi: ${b.items.join(', ')}.<br>✦ ${b.bonus}`; }).join('<br><br>') + `<br><br>${waCTA}` },
   { k: ['terima kasih', 'makasih', 'thanks', 'oke', 'sip'], a: () => 'Sama-sama 🙏 Kalau sudah siap, tinggal <a href="#pesan">isi form</a> atau chat WhatsApp — kami balas &lt;24 jam.' },
   { k: ['salam', 'halo', 'hai', 'assalamu', 'pagi', 'siang', 'malam'], a: () => 'Wa’alaikumussalam 👋 Ada yang bisa saya bantu soal buku-buku Dr. Izza Rohman?' }
 ];

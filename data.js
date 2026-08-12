@@ -200,12 +200,41 @@ window.BOOKS = [
     blurb: "Karya utama yang menjelaskan metode menafsirkan Al-Qur'an dengan Al-Qur'an — fondasi dari seluruh rangkaian karya Dr. Izza Rohman."
   }
 ];
-window.BUNDLE = {
-  slug: "paket-5-buku-dr-izza-rohman",
-  title: "Paket 5 Buku Dr. Izza Rohman",
-  price: 182250,
-  cover: "img/paket-5-buku-dr-izza-rohman.jpg",
-  src: "https://penerbitqaf.com/product/paket-5-buku-dr-izza-rohman/",
-  items: ["Tafsir Bacaan Shalat", "Rizqan Wasi'an Thayyiban", "Memahami Surah Al-Fatihah", "Ilmu Ikhlas", "Memahami Surah Al-Ma'un"],
-  bonus: "Bonus 1 judul — Memahami Surah Yasin"
-};
+window.BUNDLES = [
+  {
+    slug: "paket-5-buku-dr-izza-rohman",
+    title: "Paket 5 Buku Dr. Izza Rohman",
+    price: 182250,
+    cover: "img/paket-5-buku-dr-izza-rohman.jpg",
+    src: "https://penerbitqaf.com/product/paket-5-buku-dr-izza-rohman/",
+    items: ["Tafsir Bacaan Shalat", "Rizqan Wasi'an Thayyiban", "Memahami Surah Al-Fatihah", "Ilmu Ikhlas", "Memahami Surah Al-Ma'un"],
+    bonus: "Bonus 1 judul — Memahami Surah Yasin"
+  },
+  {
+    slug: "paket-tafsir-trio",
+    title: "Paket Tafsir Trio",
+    price: 128250,
+    cover: "img/paket-tafsir-trio.jpg",
+    src: "https://penerbitqaf.com/product/paket-tafsir-trio/",
+    items: ["Tafsir Al-'Ashr", "Tafsir Al-'Alaq", "Tafsir Asmaul Husna"],
+    bonus: "Bonus 1 buku do'a dzikir"
+  },
+  {
+    slug: "paket-surah-duo",
+    title: "Paket Surah Duo",
+    price: 81750,
+    cover: "img/paket-surah-duo.jpg",
+    src: "https://penerbitqaf.com/product/paket-surah-duo/",
+    items: ["Memahami Surah Al-Fatihah", "Memahami Surah Yasin"],
+    bonus: "Bonus bookmark Zah"
+  },
+  {
+    slug: "paket-sydney-set",
+    title: "Paket Sydney Set",
+    price: 131250,
+    cover: "img/paket-sydney-set.jpg",
+    src: "https://penerbitqaf.com/product/paket-sydney-set/",
+    items: ["Ramadan in Sydney", "Cerah Mentari Di Ufuk Sydney"],
+    bonus: "Bonus 1 judul pilihan"
+  }
+];
