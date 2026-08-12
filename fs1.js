@@ -12,8 +12,8 @@ window.__ZAH = { rupiah, waLink, RM, $, $$ };
 /* --- ticker --- */
 const tk = $('#tk');
 if (tk) {
-  const items = ['GRATIS ONGKIR MIN. 2 BUKU SE-JAWA', '6 JUDUL RESMI DR. IZZA ROHMAN',
-    'PAKET 5 BUKU HEMAT RP53.100', 'BALAS <24 JAM', 'COD & TRANSFER', 'GARANSI GANTI BARU'];
+  const items = ['GRATIS ONGKIR MIN. 2 BUKU SE-JAWA', '12 JUDUL RESMI DR. IZZA ROHMAN',
+    'PAKET 5 BUKU RP182.250', 'BALAS <24 JAM', 'COD & TRANSFER', 'GARANSI GANTI BARU'];
   tk.innerHTML = [...items, ...items].map(t => `<span>✦ ${t}</span>`).join('');
 }
 

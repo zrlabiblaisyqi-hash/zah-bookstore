@@ -63,7 +63,7 @@ const observeAll = () => $$('.rv:not(.in)').forEach(el => io.observe(el));
 observeAll();
 
 /* ---------- marquee ---------- */
-const mqItems = ['6 Judul Resmi Dr. Izza Rohman', 'Cetakan Resmi Penerbit Qaf', 'Kirim se-Indonesia', 'Konsultasi Pilih Buku Gratis', 'Garansi Ganti Baru', 'Wakaf Buku untuk TPQ'];
+const mqItems = ['12 Judul Resmi Dr. Izza Rohman', 'Cetakan Resmi Penerbit Qaf', 'Kirim se-Indonesia', 'Konsultasi Pilih Buku Gratis', 'Garansi Ganti Baru', 'Wakaf Buku untuk TPQ'];
 $('#mq').innerHTML = [...mqItems, ...mqItems].map(s => `<span><i>✦</i> ${s}</span>`).join('');
 
 /* ---------- CATALOGUE ---------- */
@@ -116,7 +116,8 @@ $$('.bcard').forEach(card => {
 });
 
 /* ---------- BUNDLE ---------- */
-const single = BOOKS.reduce((a, b) => a + b.price, 0);
+const bundleItems = BOOKS.filter(b => BUNDLE.items.includes(b.title));
+const single = bundleItems.reduce((a, b) => a + b.price, 0);
 $('#bundleBox').innerHTML = `
   <img src="${BUNDLE.cover}" alt="Foto paket 5 buku karya Dr. Izza Rohman" loading="lazy" width="460" height="460">
   <div>
@@ -143,7 +144,7 @@ $('#waDirect').href = waLink('Halo Zah Bookstore, saya mau tanya soal buku Dr. I
 
 /* ---------- FAQ ---------- */
 const FAQ = [
-  ['Berapa harga bukunya?', 'Satuan mulai Rp45.000 (Memahami Surah Al-Fatihah &amp; Al-Ma’un) hingga Rp54.000 (Tafsir Bacaan Shalat, Rizqan Wasi’an Thayyiban). Paket 5 buku Rp247.500 sudah termasuk bonus satu judul.'],
+  ['Berapa harga bukunya?', 'Satuan mulai Rp12.000 (Tafsir Al-\'Ashr &amp; Al-\'Alaq) hingga Rp120.000 (Tafsir Al-Qur\'an Bi Al-Qur\'an). Paket 5 buku Rp182.250 sudah termasuk bonus satu judul.'],
   ['Bukunya asli atau cetakan bajakan?', '100% cetakan resmi Penerbit Qaf, lengkap dengan ISBN yang tercantum di setiap halaman detail. Jika kamu menerima buku cacat cetak, kami ganti baru.'],
   ['Kirim ke mana saja dan berapa lama?', 'Ke seluruh Indonesia lewat JNE, J&amp;T, dan SiCepat. Jabodetabek 1–2 hari, Jawa 2–3 hari, luar Jawa 3–6 hari. Instan tersedia untuk Jabodetabek.'],
   ['Bagaimana cara pesannya?', 'Tiga langkah: klik “Pesan via WhatsApp” di buku pilihanmu (atau isi form), kami balas dengan total + ongkir dalam 24 jam, lalu transfer/COD. Resi dikirim hari itu juga. Tidak perlu bikin akun.'],
