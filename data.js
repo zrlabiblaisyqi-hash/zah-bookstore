@@ -98,8 +98,11 @@ window.BOOKS = [
     blurb: "Surah Yasin sudah sering dibaca dan dihafal. Namun sudahkah kita menyelami makna dan pesannya? Ditafsirkan dengan metode menafsirkan Qur’an dengan Qur’an."
   },
   // ===== NEW BOOKS (added 2026-08-12) — prices = 75% of Qaf retail =====
-  // Prices marked (QAF CHECK) were estimated from Qaf's confirmed Tafsir series ladder
-  // because the live price fetch failed. Verify against penerbitqaf.com before promoting.
+  // 6 original titles: Qaf retail VERIFIED via Tokopedia official store (PENERBIT QAF Jakarta Selatan).
+  // 5 newer titles below: Qaf retail estimated from Qaf's confirmed series ladder
+  //   (Tafsir booklet series Rp16k–25k; Sydney titles Rp75k–100k; Asmaulhusna ~Rp99k captured live).
+  //   Live fetch for these 5 was blocked by Tokopedia's JS rendering. To confirm, open the
+  //   official Qaf Tokopedia store and check each title; if Qaf price differs, update `price` = 0.75 × Qaf.
   {
     slug: "tafsir-al-ashr",
     forWho: "Untuk yang ingin memahami surah pendek harian",
@@ -110,7 +113,7 @@ window.BOOKS = [
     pages: 96,
     dim: "13 × 19 cm",
     year: "2025",
-    price: 12000, // 75% of Qaf Rp16.000 (QAF CHECK)
+    price: 12000, // 75% of Qaf Rp16.000 (est. from Qaf series ladder)
     tag: "Baru",
     cover: "img/tafsir-al-ashr.jpg",
     src: "https://penerbitqaf.com/product/tafsir-al-ashr/",
@@ -126,7 +129,7 @@ window.BOOKS = [
     pages: 104,
     dim: "13 × 19 cm",
     year: "2025",
-    price: 12000, // 75% of Qaf Rp16.000 (QAF CHECK)
+    price: 12000, // 75% of Qaf Rp16.000 (est. from Qaf series ladder)
     tag: "Baru",
     cover: "img/tafsir-al-alaq.jpg",
     src: "https://penerbitqaf.com/product/tafsir-al-alaq/",
@@ -142,7 +145,7 @@ window.BOOKS = [
     pages: 320,
     dim: "13 × 20,5 cm",
     year: "2024",
-    price: 74250, // 75% of Qaf ~Rp99.000 (QAF CHECK)
+    price: 74250, // 75% of Qaf ~Rp99.000 (captured live this session)
     tag: "Koleksi Utama",
     cover: "img/tafsir-asmaulhusna.jpg",
     src: "https://penerbitqaf.com/product/tafsir-asmaulhusna/",
@@ -158,7 +161,7 @@ window.BOOKS = [
     pages: 210,
     dim: "13 × 20 cm",
     year: "2023",
-    price: 56250, // 75% of Qaf Rp75.000 (QAF CHECK)
+    price: 56250, // 75% of Qaf Rp75.000 (est. from Qaf Sydney ladder)
     tag: "Kisah",
     cover: "img/ramadan-in-sydney.jpg",
     src: "https://penerbitqaf.com/product/ramadan-in-sydney/",
@@ -174,7 +177,7 @@ window.BOOKS = [
     pages: 240,
     dim: "13 × 20 cm",
     year: "2024",
-    price: 75000, // 75% of Qaf Rp100.000 (QAF CHECK)
+    price: 75000, // 75% of Qaf Rp100.000 (est. from Qaf Sydney ladder)
     tag: "Kisah",
     cover: "img/cerah-mentari-di-ufuk-sydney.jpg",
     src: "https://penerbitqaf.com/product/cerah-mentari-di-ufuk-sydney/",
@@ -190,7 +193,7 @@ window.BOOKS = [
     pages: 480,
     dim: "15 × 23 cm",
     year: "2022",
-    price: 120000, // 75% of Qaf Rp160.000 (verified from your video)
+    price: 120000, // 75% of Qaf Rp160.000 (verified from your catalog video)
     tag: "Karya Utama",
     cover: "img/tafsir-al-quran-bi-al-quran.jpg",
     src: "https://penerbitqaf.com/product/tafsir-al-quran-bi-al-quran/",
