@@ -115,15 +115,41 @@ $$('.bcard').forEach(card => {
   card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
-/* ---------- BUNDLES ---------- */
-$('#bundleBox').innerHTML = BUNDLES.map((B, bi) => {
+/* ---------- PAKET 5 BUKU (dedicated feature) ---------- */
+const P5 = BUNDLES[0];
+const p5items = BOOKS.filter(b => P5.items.includes(b.title));
+const p5single = p5items.reduce((a, b) => a + b.price, 0);
+$('#paket5Box').innerHTML = `
+  <div class="p5-grid">
+    <div class="p5-cover">
+      <img src="${P5.cover}" alt="Paket 5 Buku Dr. Izza Rohman" loading="lazy" width="360" height="360">
+      <div class="p5-badge">PAKET UNGGULAN</div>
+    </div>
+    <div class="p5-info">
+      <h3 style="font-size:clamp(1.5rem,3vw,2.2rem);color:#f7f3ea;margin-bottom:8px">${P5.title}</h3>
+      <p style="color:#5fb98f;font-weight:600;margin-bottom:18px">✦ ${P5.bonus}</p>
+      <div class="p5-spread">
+        ${p5items.map(b => `<div class="p5-mini"><img src="${b.cover}" alt="${b.title}" loading="lazy" width="92" height="130"><span>${b.title}</span></div>`).join('')}
+      </div>
+      <div class="p5-buy">
+        <div class="p5-price"><span class="price" style="font-size:2.4rem;color:#fff">${rupiah(P5.price)}</span><span class="oldp">${rupiah(p5single)}</span><span class="save">Hemat ${rupiah(p5single - P5.price)}</span></div>
+        <div class="p5-acts">
+          <a class="btn btn-wa" href="${waLink(`Halo Zah Bookstore, saya mau pesan ${P5.title} (${rupiah(P5.price)}). Mohon info total + ongkir ya.`)}" target="_blank" rel="noopener">Pesan Paket via WhatsApp</a>
+          <a href="#pesan" class="btn btn-ghost">Tanya dulu</a>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+/* ---------- OTHER BUNDLES (3 smaller) ---------- */
+$('#bundleBox').innerHTML = BUNDLES.slice(1).map((B, bi) => {
   const bundleItems = BOOKS.filter(b => B.items.includes(b.title));
   const single = bundleItems.reduce((a, b) => a + b.price, 0);
   return `
   <div class="bun-card" style="background:#fff;border-radius:18px;padding:22px;border:1px solid rgba(27,42,74,.08);box-shadow:0 10px 26px rgba(27,42,74,.06);${bi? ' margin-top:22px':''}">
     <img src="${B.cover}" alt="Foto ${B.title}" loading="lazy" width="200" height="200" style="border-radius:12px;float:left;margin-right:20px;max-width:160px">
     <div style="overflow:hidden">
-      <span class="kicker">Paket ${bi+1}</span>
+      <span class="kicker">Paket ${bi+2}</span>
       <h2 style="font-size:clamp(1.4rem,2.6vw,2rem);color:var(--lapis);margin:4px 0 10px">${B.title}</h2>
       <ul style="margin:0 0 12px;padding-left:18px;color:var(--ink);font-size:.92rem;line-height:1.6">${B.items.map(i => `<li>${i}</li>`).join('')}</ul>
       <p style="color:var(--gold);font-size:.9rem;margin:0 0 14px">✦ ${B.bonus}</p>
@@ -369,5 +395,16 @@ function send(text) {
 }
 $('#csend').onclick = () => send();
 $('#cin').addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+
+/* --- copy account numbers (payment block) --- */
+document.querySelectorAll('.copy').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const txt = btn.dataset.copy || '';
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => {
+      const o = btn.textContent; btn.textContent = 'Tersalin ✓';
+      setTimeout(() => btn.textContent = o, 1400);
+    });
+  });
+});
 
 })();
